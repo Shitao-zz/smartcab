@@ -68,8 +68,7 @@ class LearningAgent(Agent):
         self.destination_reached = reward > 2
 	if self.destination_reached or deadline == 0: 
 	    self.save_trial_stats() 
- 
-	# Learn policy based on state, action and reward
+        # Learn policy based on state, action and reward
         # Q learn equation: Q(s,a) = (1-alpha)*Q(s,a) + alpha*(reward + gamma*argmaxQ(s',a'))
 	# get Q(s',a')
         new_input = self.env.sense(self) 
@@ -89,6 +88,7 @@ class LearningAgent(Agent):
             self.trial_stats = self.trial_stats.append(trial_df, ignore_index = True)
         if self.trial_stats.shape[0] == 100:
             self.trial_stats.to_csv('Q_learning_gamma'+str(self.gamma)+'.csv',index = False)
+            pd.DataFrame(self.Q).to_csv('Q_matrix.csv',index = False) 
 
 
 def run():

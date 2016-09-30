@@ -44,11 +44,11 @@ class LearningAgent(Agent):
         elif self.next_waypoint == 'left':
             if inputs['light'] == 'red' or (inputs['oncoming'] == 'forward' or inputs['oncoming'] == 'right'):
                 action_okay = False
-        action = None
-        if action_okay:
-            action = self.next_waypoint
+        #action = None
+        #if action_okay:
+        #    action = self.next_waypoint
         # TODO: Select action according to your policy
-        #action = random.choice([None,'forward','left','right'])
+        action = random.choice([None,'forward','left','right'])
         
 	# Execute action and get reward
         reward = self.env.act(self, action)
@@ -73,7 +73,8 @@ class LearningAgent(Agent):
         else:
             self.trial_stats = self.trial_stats.append(trial_df, ignore_index = True)
         if self.trial_stats.shape[0] == 100:
-            self.trial_stats.to_csv('planner_only.csv',index=False)
+            pass
+        #    self.trial_stats.to_csv('planner_only.csv',index=False)
 
 
 def run():
@@ -86,10 +87,10 @@ def run():
     # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it
-    sim = Simulator(e, update_delay=0.0, display=False)  # create simulator (uses pygame when display=True, if available)
+    sim = Simulator(e, update_delay=0.5, display=True)  # create simulator (uses pygame when display=True, if available)
     # NOTE: To speed up simulation, reduce update_delay and/or set display=False
 
-    sim.run(n_trials=100)  # run for a specified number of trials
+    sim.run(n_trials=10)  # run for a specified number of trials
     # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
     
     print e.wins
